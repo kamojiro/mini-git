@@ -12,4 +12,4 @@ class ObjectStore:
         object_path = self.git_repository.git_path / "objects" / object.object_path
         print(f"Saving object to {object_path}")
         with object_path.open("wb") as f:
-            f.write(object.git_data)
+            f.write(object.get_compressed_data())

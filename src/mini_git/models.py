@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from pathlib import Path
 import hashlib
+import zlib
 
 
 class Object(BaseModel):
@@ -28,3 +29,6 @@ class Object(BaseModel):
     @property
     def object_path(self) -> Path:
         return self.object_directory / self.object_filename
+
+    def get_compressed_data(self) -> bytes:
+        return zlib.compress(self.git_data)

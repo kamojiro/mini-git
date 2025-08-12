@@ -16,4 +16,5 @@ class AddCommand:
             print("No files specified to add.")
             return
         object = Object.from_path(path)
+        # FIXME: 想定とは異なるものが保存されているようだ
         self._save_object(object)
