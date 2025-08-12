@@ -31,4 +31,4 @@ class Object(BaseModel):
         return self.object_directory / self.object_filename
 
     def get_compressed_data(self) -> bytes:
-        return zlib.compress(self.git_data)
+        return zlib.compress(self.git_data, level=1)
