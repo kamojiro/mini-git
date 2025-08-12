@@ -1,5 +1,9 @@
 name: CI
 
+on:
+  push:
+  pull_request:
+
 jobs:
   ci:
     name: python
@@ -12,7 +16,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
 
       - name: sync dependencies
-        run: uv sync --frozen
+        run: uv sync --all-extras --frozen
 
       - name: Run nox
         run: uv run nox
