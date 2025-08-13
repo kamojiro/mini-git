@@ -1,0 +1,2 @@
+- [Gitのオブジェクトの中身](https://zenn.dev/kaityo256/articles/objects_of_git)
+- [Git の仕組み (1)](https://koseki.hatenablog.com/entry/2014/04/22/inside-git-1)

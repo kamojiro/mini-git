@@ -1,7 +1,7 @@
 import typer
 from pathlib import Path
 
-from mini_git.commands import AddCommand
+from mini_git.commands import AddCommand, InitCommand
 from mini_git.core.git_repository import GitRepository
 
 app = typer.Typer()
@@ -13,22 +13,15 @@ def hello(name: str):
 
 
 @app.command()
-def init(path: Path = Path.cwd()):
-    git_dir = path / ".git"
-    object_dir = git_dir / "objects"
-    if git_dir.is_dir():
-        print(f"Repository already initialized at {git_dir}")
-    else:
-        git_dir.mkdir(parents=True, exist_ok=True)
-        object_dir.mkdir(parents=True, exist_ok=True)
-        print(f"Initialized empty Git repository in {git_dir}")
+def init():
+    commnad = InitCommand()
+    commnad.execute()
 
 
 @app.command()
 def add(path: Path):
     # TODO: enable directory path
-    git_repository = GitRepository()
-    command = AddCommand(git_repository=git_repository)
+    command = AddCommand()
     command.execute(path)
 
 
