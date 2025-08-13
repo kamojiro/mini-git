@@ -1,5 +1,6 @@
 from mini_git.core import GitRepository
 
+
 class InitCommand:
     def __init__(self):
         pass

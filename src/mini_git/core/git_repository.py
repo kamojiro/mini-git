@@ -28,4 +28,3 @@ class GitRepository:
             object_dir.mkdir(parents=True, exist_ok=True)
             print(f"Initialized empty Git repository in {git_dir}")
         return cls()
-

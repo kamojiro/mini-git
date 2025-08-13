@@ -2,7 +2,6 @@ import typer
 from pathlib import Path
 
 from mini_git.commands import AddCommand, InitCommand
-from mini_git.core.git_repository import GitRepository
 
 app = typer.Typer()
 
