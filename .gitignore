@@ -9,6 +9,9 @@ wheels/
 # Virtual environments
 .venv
 
+# for llm
+for_llm/
+
 # for exp
 temp/
 samples/

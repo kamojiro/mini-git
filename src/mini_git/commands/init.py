@@ -1,11 +1,11 @@
-from mini_git.core import GitRepository
+from mini_git.services import RepoContext
+from pathlib import Path
 
 
 class InitCommand:
     def __init__(self):
         pass
 
-    def execute(self):
-        print("Init Command")
-        git_repository = GitRepository.init()
-        print("Git repository initialized at:", git_repository.git_path)
+    def execute(self, path: Path = Path.cwd(), default_branch: str = "main"):
+        repo_context = RepoContext.open_or_init_repo(path, default_branch)
+        print(f"Initialized empty Git repository in {repo_context.git_path}")
