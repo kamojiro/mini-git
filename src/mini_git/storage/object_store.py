@@ -12,7 +12,6 @@ class ObjectStore:
     def write(self, type: ObjectType, raw: bytes) -> str:
         header = f"{type.value} {len(raw)}\0".encode()
         data = header + raw
-        print(f"add data {data=}")
         object_id = hashlib.sha1(data).hexdigest()
         (self.object_dir / object_id[:2]).mkdir(parents=True, exist_ok=True)
         (self.object_dir / object_id[:2] / object_id[2:]).write_bytes(

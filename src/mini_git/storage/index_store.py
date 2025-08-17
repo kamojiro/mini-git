@@ -25,7 +25,7 @@ class IndexStore:
     # --- パブリックAPI ---
     def add_or_update(self, e: IndexEntry) -> None:
         data = self._load()
-        data[e.path] = {"mode": e.mode, "oid": e.oid}
+        data[str(e.path)] = {"mode": e.mode, "oid": e.oid}
         self._save(data)
 
     def remove(self, path: str) -> None:
@@ -40,4 +40,4 @@ class IndexStore:
     def all(self) -> Iterable[IndexEntry]:
         data = self._load()
         for p, v in data.items():
-            yield IndexEntry(path=p, mode=int(v["mode"]), oid=v["oid"])
+            yield IndexEntry(path=Path(p), mode=int(v["mode"]), oid=v["oid"])

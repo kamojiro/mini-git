@@ -10,6 +10,7 @@ class AddCommand:
         if not path:
             print("No files specified to add.")
             return
-        repo_context = RepoContext.require_repo(path)
+        # ファイルの親ディレクトリからリポジトリを探索
+        repo_context = RepoContext.require_repo(path.parent if path.is_file() else path)
         add_service = AddService(repo_context.object_store)
         add_service.add_object(path)
