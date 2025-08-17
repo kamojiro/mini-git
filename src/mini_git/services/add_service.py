@@ -7,6 +7,7 @@ class AddService:
     def __init__(self, object_store: ObjectStore):
         self.object_store = object_store
 
-    def add_object(self, path: Path):
+    def add_object(self, path: Path) -> str:
         data = path.read_bytes()
-        self.object_store.write(ObjectType.BLOB, data)
+        object_id = self.object_store.write(ObjectType.BLOB, data)
+        return object_id

@@ -1,2 +1,3 @@
 - [Gitのオブジェクトの中身](https://zenn.dev/kaityo256/articles/objects_of_git)
 - [Git の仕組み (1)](https://koseki.hatenablog.com/entry/2014/04/22/inside-git-1)
+- [Qiita: たぶんもう怖くないGit ~Git内部の仕組み~](https://qiita.com/marchin_1989/items/2ec01553e907f3a9e6bb#いきなり結論)
