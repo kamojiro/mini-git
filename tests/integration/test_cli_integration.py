@@ -1,10 +1,12 @@
+"""Integration tests for CLI layer with command and service layers"""
+
 from pathlib import Path
 from typer.testing import CliRunner
 from mini_git.cli import app
 
 
-def test_cli_hello_command():
-    """hello コマンドのテスト"""
+def test_cli_app_integration_hello():
+    """CLI app とhelloコマンドの統合テスト"""
     runner = CliRunner()
     result = runner.invoke(app, ["hello", "World"])
 
@@ -12,8 +14,8 @@ def test_cli_hello_command():
     assert "Hello, World!" in result.stdout
 
 
-def test_cli_init_command(tmp_path: Path):
-    """init コマンドのテスト"""
+def test_cli_app_integration_init(tmp_path: Path):
+    """CLI app とinitコマンドの統合テスト"""
     runner = CliRunner()
 
     with runner.isolated_filesystem(temp_dir=tmp_path):
@@ -28,8 +30,8 @@ def test_cli_init_command(tmp_path: Path):
         assert Path(".git/refs/heads").is_dir()
 
 
-def test_cli_add_command(tmp_path: Path):
-    """add コマンドのテスト"""
+def test_cli_app_integration_add_success(tmp_path: Path):
+    """CLI app とaddコマンドの成功ケース統合テスト"""
     runner = CliRunner()
 
     with runner.isolated_filesystem(temp_dir=tmp_path):
@@ -54,8 +56,8 @@ def test_cli_add_command(tmp_path: Path):
         assert len(object_files) > 0
 
 
-def test_cli_add_command_nonexistent_file(tmp_path: Path):
-    """存在しないファイルに対するadd コマンドのテスト"""
+def test_cli_app_integration_add_error_cases(tmp_path: Path):
+    """CLI app とaddコマンドのエラーケース統合テスト"""
     runner = CliRunner()
 
     with runner.isolated_filesystem(temp_dir=tmp_path):
@@ -65,13 +67,11 @@ def test_cli_add_command_nonexistent_file(tmp_path: Path):
 
         # 存在しないファイルを追加しようとする
         add_result = runner.invoke(app, ["add", "nonexistent.txt"])
-
-        # エラーで終了することを確認
         assert add_result.exit_code != 0
 
 
-def test_cli_add_command_no_repo(tmp_path: Path):
-    """リポジトリが初期化されていない状態でのadd コマンドのテスト"""
+def test_cli_app_integration_add_no_repo(tmp_path: Path):
+    """リポジトリが初期化されていない状態でのCLI統合テスト"""
     runner = CliRunner()
 
     with runner.isolated_filesystem(temp_dir=tmp_path):
@@ -81,13 +81,11 @@ def test_cli_add_command_no_repo(tmp_path: Path):
 
         # リポジトリを初期化せずにファイルを追加しようとする
         add_result = runner.invoke(app, ["add", str(test_file)])
-
-        # エラーで終了することを確認
         assert add_result.exit_code != 0
 
 
-def test_cli_workflow_init_and_add(tmp_path: Path):
-    """init -> add の完全なワークフローのテスト"""
+def test_cli_app_integration_full_workflow(tmp_path: Path):
+    """CLI app でのinit -> add の完全なワークフロー統合テスト"""
     runner = CliRunner()
 
     with runner.isolated_filesystem(temp_dir=tmp_path):
@@ -114,8 +112,8 @@ def test_cli_workflow_init_and_add(tmp_path: Path):
         assert len(object_files) == len(files_to_add)
 
 
-def test_cli_help_commands():
-    """ヘルプコマンドのテスト"""
+def test_cli_app_help_integration():
+    """CLI app のヘルプ機能統合テスト"""
     runner = CliRunner()
 
     # メインのヘルプ
